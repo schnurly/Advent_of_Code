@@ -55,7 +55,7 @@ def CountVisible():
     trueCount=0
     for row in  matrixVisible:
         for col in row:
-            trueCount= trueCount+1 if col  else trueCount        
+            trueCount= trueCount+1 if col else trueCount        
     return trueCount
 
 def DoScoreCalcForTree(xPos,yPos,high):
@@ -112,7 +112,11 @@ if(result != 21):
     print("ValidationFailed:" + str(result) )
     for row in  matrixVisible:
         print(list(map(lambda x: "O" if x else "X",row)))
+<<<<<<< HEAD
 result = DoPart2()
+=======
+result = CalcHighestScore()
+>>>>>>> 6636abf0d4fce63994d9e79a05316afdf7cc0041
 if(result != 8):
     print("ValidationFailed Part2:" + str(result) )
     exit()
@@ -120,5 +124,10 @@ if(result != 8):
 ReadFile('C:\\temp\\Advent_of_Code\\2022\\08_input.txt')
 result = DoPart1()
 print("visible:" + str(result))
+<<<<<<< HEAD
 result = DoPart2()
 print("score:" + str(result))
+=======
+result = CalcHighestScore()
+print("score:" + str(result))
+>>>>>>> 6636abf0d4fce63994d9e79a05316afdf7cc0041
