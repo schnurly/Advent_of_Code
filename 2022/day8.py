@@ -11,7 +11,7 @@ def ReadFile(file):
             matrixSource.append(list(map(lambda x: int(x),lineClean)))
             matrixVisible.append(list(map(lambda x: False,lineClean)))
 
-def CalcVisibleTrees():
+def DetermineVisibleTrees():
     global matrixSource,matrixVisible
     #top
     for x in range(0,len(matrixSource[0])):  
@@ -55,7 +55,7 @@ def CountVisible():
     trueCount=0
     for row in  matrixVisible:
         for col in row:
-            trueCount= trueCount+1 if (col == True) else trueCount        
+            trueCount= trueCount+1 if col  else trueCount        
     return trueCount
 
 def DoScoreCalcForTree(xPos,yPos,high):
@@ -65,34 +65,26 @@ def DoScoreCalcForTree(xPos,yPos,high):
     righttreeCount=0
     downtreeCount=0
     # to top  
-    for y in range(yPos-1,-1,-1):  
-        if(matrixSource[y][xPos] < high):
-            toptreeCount+=1
-        elif(matrixSource[y][xPos] >= high):
-            toptreeCount+=1
+    for y in range(yPos-1,-1,-1):         
+        toptreeCount+=1
+        if(matrixSource[y][xPos] >= high):
             break   
     #to left
     for x in range(xPos-1,-1,-1):
-        if(matrixSource[yPos][x] < high):
-            lefttreeCount+=1
-        elif(matrixSource[yPos][x] >= high):
-            lefttreeCount+=1
+        lefttreeCount+=1
+        if(matrixSource[yPos][x] >= high):          
             break
   
     #to right
-    for x in range(xPos+1,len(matrixSource[yPos])):
-        if(matrixSource[yPos][x] < high):
-            righttreeCount+=1
-        elif(matrixSource[yPos][x] >= high):
-            righttreeCount+=1
+    for x in range(xPos+1,len(matrixSource[yPos])):        
+        righttreeCount+=1
+        if(matrixSource[yPos][x] >= high):          
             break
 
     #to buttom
     for y in range(yPos+1,len(matrixSource)):
-        if(matrixSource[y][xPos] < high):
-            downtreeCount+=1
-        elif(matrixSource[y][xPos] >= high):
-            downtreeCount+=1
+        downtreeCount+=1
+        if(matrixSource[y][xPos] >= high):            
             break
   
     #print(str(xPos) + " " + str(yPos) + " ### " + str(toptreeCount) + "*" + str(lefttreeCount) + "*" + str(righttreeCount) + "*" + str(downtreeCount))
@@ -107,22 +99,26 @@ def CalcHighestScore():
             highest = result if result > highest else highest
     return highest
 
-def DoProcessing(file):
-    ReadFile(file)
-    CalcVisibleTrees()
+def DoPart1():
+    DetermineVisibleTrees()
     return CountVisible()
+def DoPart2():
+    return CalcHighestScore()
+    
 
-result = DoProcessing('C:\\temp\\Advent_of_Code\\2022\\08_input.txt.sample')
+ReadFile('C:\\temp\\Advent_of_Code\\2022\\08_input.txt.sample')
+result = DoPart1()
 if(result != 21):
     print("ValidationFailed:" + str(result) )
     for row in  matrixVisible:
-        print(list(map(lambda x: "O" if x==True else "X",row)))
-result = CalcHighestScore()
+        print(list(map(lambda x: "O" if x else "X",row)))
+result = DoPart2()
 if(result != 8):
     print("ValidationFailed Part2:" + str(result) )
     exit()
 
-result = DoProcessing('C:\\temp\\Advent_of_Code\\2022\\08_input.txt')
+ReadFile('C:\\temp\\Advent_of_Code\\2022\\08_input.txt')
+result = DoPart1()
 print("visible:" + str(result))
-result = CalcHighestScore()
+result = DoPart2()
 print("score:" + str(result))
