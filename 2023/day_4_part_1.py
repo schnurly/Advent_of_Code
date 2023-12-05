@@ -40,4 +40,10 @@ def countMatches(line):
                 break
     return matches
 #doPart1('C:\\temp\\Advent_of_Code\\2023\\04_input.txt')
+from time import *
+t1 = process_time() 
 doPart2('C:\\temp\\Advent_of_Code\\2023\\04_input.txt')
+t2 = process_time()
+t = t2 - t1
+
+print('Rechenzeit: ', t)
